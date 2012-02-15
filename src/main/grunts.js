@@ -27,6 +27,13 @@
                 grunt.worker.onmessage = grunt.kill.bind(grunt);
                 grunt.worker.onerror = grunt.err.bind(grunt);
                 return grunt;          
+            },
+            work: function(args) {
+            	if(args) {
+            		//TODO start specific workers
+            	} else{
+            		//TODO start all unstarted workers
+            	}
             }
         }
     })()
