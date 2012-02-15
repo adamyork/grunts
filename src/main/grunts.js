@@ -32,8 +32,8 @@
     })()
     function Grunt(name,data) {
         obj = {};
-        if(Worker) {
-			obj = {
+        try{
+        	obj = {
 				name:name,
 				type: Worker,
 				worker: {},
@@ -58,8 +58,8 @@
 					}
 				}
 			}
-        } else {
-        	//build a pass through object because this is ie
+        } catch (e) {
+        	//build a pass through object because this is IE
         }
         return obj;
     }
