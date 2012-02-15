@@ -1,4 +1,15 @@
 (function(window){
+	if (!Function.bind) {
+      Function.prototype.bind = function(bind) {
+        var self;
+        self = this;
+        return function() {
+          var args;
+          args = Array.prototype.slice.call(arguments);
+          return self.apply(bind || null, args);
+        };
+      };
+    }
     window.grunts = (function() {
         return {
             gruntz: [],
