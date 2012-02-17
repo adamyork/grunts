@@ -19,7 +19,7 @@ grunts is a wrapper and convenience library for web workers. Instantiation and m
 * Download grunts.js and gruntstask.js.
 * Place in desired directory.
 * Add a script tag to your page or async load grunts.js.
-** If you wish to have grunts and gruntstask in seperate locations
+* If you wish to have grunts and gruntstask in seperate locations :
 ```javascript
 grunts.TASK_PATH = './someother/location/here/'
 ```
