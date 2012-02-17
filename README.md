@@ -32,7 +32,7 @@ var params = {
     onmessage : handleMessage,
     onerror : handleError,
 };
-var differedParams = {
+var deferredParams = {
     process : "./js/BasicTask.js",
     onmessage : handleMessage,
     onerror : handleError,
@@ -66,16 +66,16 @@ grunts.add("worker3", inlineParams).work({
 * Queue a worker or workers and run by name.
 
 ```javascript
-grunts.add("worker1b",differedParams);
+grunts.add("worker1b",deferredParams);
 grunts.work(["worker1b"]);
 ```
 * Queue many workers and then run.
 
 ```javascript
-grunts.add("worker1c",differedParams);
-grunts.add("worker1d",differedParams);
-grunts.add("worker1e",differedParams);
-grunts.add("worker1f",differedParams);
+grunts.add("worker1c",deferredParams);
+grunts.add("worker1d",deferredParams);
+grunts.add("worker1e",deferredParams);
+grunts.add("worker1f",deferredParams);
 grunts.work();
 ```
 
