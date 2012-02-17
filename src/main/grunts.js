@@ -105,7 +105,8 @@
                     this.worker.terminate();
                     delete this.gruntz[this.name]
                 }
-            }
+            },
+            add: grunts.add
         }
         return obj;
     }

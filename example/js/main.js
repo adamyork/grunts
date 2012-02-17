@@ -29,13 +29,14 @@ function demo() {
         y : 11
     });
     //Queue a worker or workers and run by name.
-    grunts.add("worker1b",deferredParams);
-    grunts.work(["worker1b"]);
+    grunts.add("worker1b",deferredParams)
+          .add("worker1bb",deferredParams);
+    grunts.work(["worker1b","worker1bb"]);
     //Queue many workers and then run.
-    grunts.add("worker1c",deferredParams);
-    grunts.add("worker1d",deferredParams);
-    grunts.add("worker1e",deferredParams);
-    grunts.add("worker1f",deferredParams);
+    grunts.add("worker1c",deferredParams)
+          .add("worker1d",deferredParams)
+          .add("worker1e",deferredParams)
+          .add("worker1f",deferredParams);
     grunts.work();
 }
 
