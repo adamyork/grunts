@@ -1,0 +1,38 @@
+      ___           ___           ___           ___           ___           ___     
+     /\  \         /\  \         /\__\         /\__\         /\  \         /\  \    
+    /::\  \       /::\  \       /:/  /        /::|  |        \:\  \       /::\  \   
+   /:/\:\  \     /:/\:\  \     /:/  /        /:|:|  |         \:\  \     /:/\ \  \  
+  /:/  \:\  \   /::\~\:\  \   /:/  /  ___   /:/|:|  |__       /::\  \   _\:\~\ \  \ 
+ /:/__/_\:\__\ /:/\:\ \:\__\ /:/__/  /\__\ /:/ |:| /\__\     /:/\:\__\ /\ \:\ \ \__\
+ \:\  /\ \/__/ \/_|::\/:/  / \:\  \ /:/  / \/__|:|/:/  /    /:/  \/__/ \:\ \:\ \/__/
+  \:\ \:\__\      |:|::/  /   \:\  /:/  /      |:/:/  /    /:/  /       \:\ \:\__\  
+   \:\/:/  /      |:|\/__/     \:\/:/  /       |::/  /     \/__/         \:\/:/  /  
+    \::/  /       |:|  |        \::/  /        /:/  /                     \::/  /   
+     \/__/         \|__|         \/__/         \/__/                       \/__/  .js
+     
+Overview
+
+grunts is a wrapper and convenience library for web workers. Instantiation and management 
+of web workers is managed by grunts. grunts gets loaded into the global namespace so there 
+is no need to create an instance of grunts. 
+
+- grunts works in Opera , Firefox , and Chrome.
+
+Setup
+
+- Download grunts.js and gruntstask.js.
+- Place in desired directory.
+- Add a script tag to your page or async load grunts.js.
+-- If you wish to have grunts and gruntstask in seperate locations
+--- grunts.TASK_PATH = './someother/location/here/'
+
+Usage see: https://github.com/radAdam/grunts/blob/master/example/index.html
+
+- Queue and run a worker inline with an external process.
+- Queue and run a worker inline , with an internal process.
+- Queue a worker or workers and run by name.
+- Queue many workers and then run.
+
+TODO
+
+- Finsih IEWorker due to web workers limtations in IE9 and below.
