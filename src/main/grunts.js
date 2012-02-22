@@ -12,6 +12,9 @@
         };
     }
     function buildGrunt(name, data) {
+        if (!window.Worker) {
+            throw "Error";
+        }
         var self, obj;
         self = window;
         obj = {
@@ -46,18 +49,44 @@
         return obj;
     }
     function IEWorker(process) {
-        if (typeof (process) === 'function') {
-            process = this.grunts.TASK_PATH;
-        }
-        //TODO load process
-        var obj = {
-            onmessage: {},
-            onerror: {},
-            terminate: {},
-            postMessage: function (msg) {
-                window.console.log('ie worker is posting a message to thread main.' + msg);
+        window.attachEvent('onmessage',function(e) {
+          var d = JSON.parse(e.data);
+          var target = this.grunts.gruntz[d.ref];
+          target.onmessage({data:d});
+        });
+        obj = {
+            ieworker:true,
+            onmessage: function(args){},
+            onerror: function(args){},
+            terminate: function() {},
+            active: false,
+            postMessage: function (data) {
+                this.active = true;
+                if(this.process) {
+                    var func = eval(this.process);
+                    func({data:this.deferedData,ref:this.name});
+                } else {
+                    this.deferedData = data;
+                }
             }
         };
+        if (typeof (process) === 'string') {
+            var oReq = XMLHttpRequest();
+            if (oReq != null) {
+                oReq.open("GET",process, true);
+                oReq.onreadystatechange = function () {
+                    if (oReq.readyState == 4) {
+                        if (oReq.status == 200) {
+                            obj.process = oReq.responseText;
+                            if (obj.active) {
+                                obj.postMessage(obj.deferedData);
+                            }
+                        }
+                    }
+                };
+                oReq.send();
+            }
+        }
         return obj;
     }
     function Grunt(name, data) {
@@ -65,7 +94,7 @@
         try {
             obj = buildGrunt(name, data);
         } catch (e) {
-            window.Worker = new IEWorker();
+            window.Worker = IEWorker;
             obj = buildGrunt(name, data);
         }
         return obj;
@@ -85,6 +114,9 @@
                     grunt.data.process = "(function wrap(){return " + data.process + ";}())";
                 }
                 grunt.worker = new grunt.type(file);
+                if(grunt.worker.ieworker) {
+                    grunt.worker.name = grunt.name;
+                }
                 grunt.worker.onmessage = grunt.kill.bind(grunt);
                 grunt.worker.onerror = grunt.err.bind(grunt);
                 return grunt;
@@ -114,6 +146,13 @@
                 } else {
                     window.console.log("gruntz" + target.name + " has no work.");
                 }
+            },
+            postMessage: function (data) {
+              try {
+                  window.postMessage(data)
+              } catch(e) {
+                  data.event.ref.onmessage({data:data});
+              }
             },
             TASK_PATH: '../src/main/gruntstask.js'
         };
