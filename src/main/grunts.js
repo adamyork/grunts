@@ -11,6 +11,13 @@
             };
         };
     }
+    window.gruntmessage = function(value) {
+        try {
+            postMessage(JSON.stringify(value),"*");  
+        } catch(e) {
+            postMessage(JSON.stringify(value)); 
+        };
+    }
     function buildGrunt(name, data) {
         if (!window.Worker) {
             throw "Error";
@@ -38,8 +45,9 @@
                 delete this.gruntz[this.name];
             },
             kill : function (event) {
-                this.onmessage(event);
-                if (event.data.kill) {
+                var msg = JSON.parse(event.data);
+                this.onmessage({data:msg});
+                if (msg.kill) {
                     this.worker.terminate();
                     delete this.gruntz[this.name];
                 }
@@ -49,11 +57,7 @@
         return obj;
     }
     function IEWorker(process) {
-        window.attachEvent('onmessage',function(e) {
-          var d = JSON.parse(e.data);
-          var target = this.grunts.gruntz[d.ref];
-          target.onmessage({data:d});
-        });
+        var obj = new Object();
         obj = {
             ieworker:true,
             onmessage: function(args){},
@@ -64,7 +68,8 @@
                 this.active = true;
                 if(this.process) {
                     var func = eval(this.process);
-                    func({data:this.deferedData,ref:this.name});
+                    console.log("responder will be " + this.name)
+                    func({data:this.deferedData,responder:this.name});
                 } else {
                     this.deferedData = data;
                 }
@@ -95,6 +100,14 @@
             obj = buildGrunt(name, data);
         } catch (e) {
             window.Worker = IEWorker;
+            window.attachEvent('onmessage',function(e) {
+                var d = JSON.parse(e.data);
+                var target = this.grunts.gruntz[d.responder];
+                target.onmessage({data:d});
+                if(d.kill) {
+                    delete this.grunts.gruntz[d.responder];
+                };
+            });
             obj = buildGrunt(name, data);
         }
         return obj;
@@ -146,13 +159,6 @@
                 } else {
                     window.console.log("gruntz" + target.name + " has no work.");
                 }
-            },
-            postMessage: function (data) {
-              try {
-                  window.postMessage(data)
-              } catch(e) {
-                  data.event.ref.onmessage({data:data});
-              }
             },
             TASK_PATH: '../src/main/gruntstask.js'
         };

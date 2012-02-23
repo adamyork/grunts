@@ -1,16 +1,16 @@
 this.onmessage = function(event) {
     var sum = event.data.x += event.data.y;
-    postMessage(JSON.stringify({
+    this.gruntmessage({
         status: sum,
-        ref: event.ref
-    }),"*");
-    postMessage(JSON.stringify({
+        responder: event.responder
+    });
+    this.gruntmessage({
         status: sum,
-        ref: event.ref
-    }),"*");
-    postMessage(JSON.stringify({
+        responder: event.responder
+    });
+    this.gruntmessage({
         kill : true,
         results : sum,
-        ref: event.ref
-    }),"*");
+        responder: event.responder
+    });
 }
