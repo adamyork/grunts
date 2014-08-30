@@ -11,13 +11,7 @@
             };
         };
     }
-    window.gruntmessage = function(value) {
-        try {
-            postMessage(JSON.stringify(value),"*");  
-        } catch(e) {
-            postMessage(JSON.stringify(value)); 
-        };
-    }
+    
     function buildGrunt(name, data) {
         if (!window.Worker) {
             throw "Error";
@@ -103,7 +97,7 @@
             window.attachEvent('onmessage',function(e) {
                 var d = JSON.parse(e.data);
                 var target = this.grunts.gruntz[d.responder];
-                target.onmessage({data:d});
+                target.onmessage(d);
                 if(d.kill) {
                     delete this.grunts.gruntz[d.responder];
                 };

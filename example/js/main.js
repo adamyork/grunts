@@ -28,11 +28,11 @@ function demo() {
         // x : 6,
         // y : 11
     // });
-    // //Queue a worker or workers and run by name.
+    // // //Queue a worker or workers and run by name.
     // grunts.add("worker1b",deferredParams)
           // .add("worker1bb",deferredParams);
     // grunts.work(["worker1b","worker1bb"]);
-    // //Queue many workers and then run.
+    // // //Queue many workers and then run.
     // grunts.add("worker1c",deferredParams)
           // .add("worker1d",deferredParams)
           // .add("worker1e",deferredParams)
@@ -45,7 +45,9 @@ function customFunc(obj) {
 }
 
 function handleMessage(event) {
-    console.log("message " + event.data);
+    for(prop in event.data) {
+        console.log("event.data : " + event.data + " = " + event.data[prop])
+    } 
 }
 
 function handleError(event) {
