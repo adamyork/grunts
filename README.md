@@ -8,13 +8,13 @@
 ```
 
      
-##Overview
+## Overview
 
 grunts is a wrapper and convenience library for web workers. Instantiation and management of web workers is managed by grunts. grunts gets loaded into the global namespace so thereis no need to create an instance of grunts. 
 
-> grunts works in Opera , Firefox , and Chrome.
+> grunts works in Opera , Firefox , Chrome,and Edge.
 
-##Setup
+## Setup
 
 * Download grunts.js and gruntstask.js.
 * Place in desired directory.
@@ -24,7 +24,7 @@ grunts is a wrapper and convenience library for web workers. Instantiation and m
 grunts.TASK_PATH = './someother/location/here/'
 ```
 
-##Usage see: [example](https://github.com/radAdam/grunts/blob/master/example/js/main.js)
+## Usage see: [example](https://github.com/radAdam/grunts/blob/master/example/js/main.js)
 
 ```javascript
 var params = {
@@ -55,10 +55,10 @@ grunts.add("worker1", params).work({
     y : 3
 });
 ```
-* Queue and run a worker inline , with an internal process.
+* Queue and run a worker inline , with an internal process. Specifiy relative directory name for included grunttask.
 
 ```javascript
-grunts.add("worker3", inlineParams).work({
+grunts.add("worker3", inlineParams, 'js').work({
     x : 6,
     y : 11
 });
@@ -80,6 +80,6 @@ grunts.add("worker1c",deferredParams)
 grunts.work();
 ```
 
-##TODO
+## TODO
 
 * Finsih IEWorker due to web workers limtations in IE9 and below.

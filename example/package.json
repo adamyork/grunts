@@ -1,0 +1,12 @@
+{
+    "name": "grunts",
+    "version": "0.1.0",
+    "description": "simple grunts test server",
+    "main": "index.html",
+    "author": "",
+    "license": "MIT",
+    "private": true,
+    "dependencies": {
+        "express": "*"
+    }
+}
